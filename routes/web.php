@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', function () {
-    return redirect("https://www.sminrana.com");
+    return view('welcome');//redirect("https://www.sminrana.com");
 });
 
