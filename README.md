@@ -119,7 +119,7 @@ echo $response;
 ___
 **URL:** /api/user/cart (logged user shopping cart)
 
-**Method:** POST
+**Method:** GET
 
 **Request:**
 ```
@@ -165,7 +165,7 @@ echo $response;
 ___
 **URL:** /api/products
 
-**Method:** POST
+**Method:** GET
 
 **Request:**
 ```
