@@ -7,56 +7,205 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# About Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+API for mobile apps and other frontend apps built by Laravel and Sanctum. Just clone the repo and run the project you will get few sample apis for testing on your frontend.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installing
+<ol>
+<li>Clone the project</li>
+<li>run composer install</li>
+<li>run php artisan migrate</li>
+<li>run php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"</li>
+</ol>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Running
+<ol>
+<li>run php artisan serve</li>
+</ol>
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Available Api
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**URL:** /api/create
 
-## Laravel Sponsors
+**Method:** POST
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+**Request:**
+```
+$curl = curl_init();
 
-### Premium Partners
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://127.0.0.1:8000/api/create',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array('name' => 'Smin','email' => 'sminrana1001@gmail.com','password' => '12345678')
+));
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+$response = curl_exec($curl);
 
-## Contributing
+curl_close($curl);
+echo $response;
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
 
-## Code of Conduct
+**Response:**
+```
+{
+    "success": true,
+    "token": {
+        "name": "TutsForWeb",
+        "abilities": [
+            "*"
+        ],
+        "tokenable_id": 9,
+        "tokenable_type": "App\\Models\\User",
+        "updated_at": "2021-04-17T11:00:48.000000Z",
+        "created_at": "2021-04-17T11:00:48.000000Z",
+        "id": 14
+    }
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+___
+**URL:** /api/login
 
-## Security Vulnerabilities
+**Method:** POST
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Request:**
+```
+$curl = curl_init();
 
-## License
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://127.0.0.1:8000/api/login',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array('email' => 'sminrana1001@gmail.com','password' => '12345678'),
+));
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+**Response:**
+```
+{
+    "login": true,
+    "token": "15|YLJIcanaEVeuyP82KqdKFSw8t3izgd9uAYqSmWvi",
+    "data": {
+        "id": 9,
+        "name": "Smin",
+        "email": "sminrana1001@gmail.com",
+        "email_verified_at": null,
+        "created_at": "2021-04-17T11:00:48.000000Z",
+        "updated_at": "2021-04-17T11:00:48.000000Z"
+    },
+    "message": "Login successful"
+}
+```
+___
+**URL:** /api/user/cart (logged user shopping cart)
+
+**Method:** POST
+
+**Request:**
+```
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://127.0.0.1:8000/api/user/cart',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Bearer 9|jgItvy6W7AuqrnhtBm53yU8Bu3mMS9DiiClPqQHH'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+**Response:**
+```
+[
+    {
+        "id": 1,
+        "name": "Product 1",
+        "price": 110.5
+    },
+    {
+        "id": 2,
+        "name": "Product 2",
+        "price": 10.5
+    }
+]
+```
+
+___
+**URL:** /api/products
+
+**Method:** POST
+
+**Request:**
+```
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://127.0.0.1:8000/api/products',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+**Response:**
+```
+[
+    {
+        "id": 1,
+        "name": "Product 1",
+        "price": 110.5
+    },
+    {
+        "id": 2,
+        "name": "Product 2",
+        "price": 10.5
+    },
+    {
+        "id": 3,
+        "name": "Product 3",
+        "price": 50
+    }
+]
+```

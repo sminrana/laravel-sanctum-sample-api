@@ -12,22 +12,25 @@ use App\Models\User;
 class PassportController extends Controller
 {
     public function create(Request $request) {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
  
+        if($validator->fails()) {
+            return response()->json(["success" => false, "message" => $validator->errors()]);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
- 
+
         $token = $user->createToken('TutsForWeb')->accessToken;
- 
-        return response()->json(['token' => $token], 200);
-    
+        
+        return response()->json(['success' => true, 'token' => $token], 200);
     }
 
     public function login(Request $request) {

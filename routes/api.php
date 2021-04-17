@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\PassportController;
 use App\Http\Controllers\PrivateAPIController;
+use App\Http\Controllers\PublicAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,11 @@ use App\Http\Controllers\PrivateAPIController;
 
 Route::post('create', [PassportController::class, 'create']);
 Route::post('login', [PassportController::class, 'login']);
-//Route::get('products', [PrivateAPIController::class, "index"])->name("private-apis");
 
-Route::prefix('private')->middleware(['auth:sanctum'])->group(function () {
-    Route::get('products', [PrivateAPIController::class, "index"])->name("products");
+// Public API
+Route::get('products', [PublicAPIController::class, "index"])->name("products");
+
+// Private user api
+Route::prefix('user')->middleware(['auth:sanctum'])->group(function () {
+    Route::get('cart', [PrivateAPIController::class, "index"])->name("user_cart");
 });
